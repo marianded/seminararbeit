@@ -1,18 +1,11 @@
 import h5py
 import time as t
 
+filename = "testData"
 
-def read_lzf(filename: str):
-    begin = t.time()
-    f = h5py.File(filename, 'r')
-    end = t.time()
-
-
-def read_gzip(filename: str):
-    begin = t.time()
-    end = t.time()
-
-
-def read_szip(filename: str):
-    begin = t.time()
-    end = t.time()
+for zipper in ["lzf", "gzip", "szip"]:
+    begin = t.monotonic_ns()
+    with h5py.File(f"{filename}_{zipper}.hdf5", "r") as f_in:
+        print(list(f_in.keys()))
+    end = t.monotonic_ns()
+    print(f"{zipper} zip time: {(end - begin) / 100000000} s")
