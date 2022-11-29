@@ -18,7 +18,7 @@ pyramid_attributs = {}
 values = []
 
 print(file_size)
-
+#with h5py.File(f"{file_path}/{file_name}.h5", rdcc_nbytes=2, "r") as f_in:
 with h5py.File(f"{file_path}/{file_name}.h5", "r") as f_in:
     #image_data = f_in['Image'][:]
     #image_shape = np.shape(image_data)
@@ -33,7 +33,7 @@ with h5py.File(f"{file_path}/{file_name}.h5", "r") as f_in:
             image_shape = np.shape(data[key])
         values.append(f_in[f"pyramid/{key}"].attrs["scale"])
 
-chunks = [None]
+#chunks = [None]
 chunks = [True, None, (256, 256, 1), (256, 256, image_shape[2])]
 zippers = ["szip", "lzf", "gzip"]
 
@@ -172,3 +172,8 @@ runtime()
 # TODO SZIP Lizens
 # TODO Referenz von orginal Bild
 # TODO Plot mit Laufzeit und Kompression zusammen
+# DONE SoftLink
+# TODO Warmup Face (raus)
+# TODO OS Cache ausstellen (damit das nicht in den RAM läd)
+# TODO Fehlerabweischung (mehrmals laufenlassen)
+# TODO Git hinzufügen
